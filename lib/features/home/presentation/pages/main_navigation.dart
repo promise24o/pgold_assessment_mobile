@@ -4,6 +4,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/constants/app_assets.dart';
 import 'home_screen.dart';
+import '../../../rates/presentation/pages/rates_screen.dart';
 
 /// Main navigation wrapper with bottom navigation bar
 class MainNavigation extends StatefulWidget {
@@ -20,7 +21,7 @@ class _MainNavigationState extends State<MainNavigation> {
     const HomeScreen(),
     const _PlaceholderScreen(title: AppStrings.history),
     const _PlaceholderScreen(title: AppStrings.cards),
-    const _PlaceholderScreen(title: AppStrings.rates),
+    const RatesScreen(),
     const _PlaceholderScreen(title: AppStrings.profile),
   ];
 

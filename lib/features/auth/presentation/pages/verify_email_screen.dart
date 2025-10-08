@@ -163,6 +163,18 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
           icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
           onPressed: () => Navigator.of(context).pop(),
         ),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4),
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            child: LinearProgressIndicator(
+              value: 0.6, // 60% progress (adjust based on your flow)
+              backgroundColor: AppColors.backgroundSecondary,
+              valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+              minHeight: 4,
+            ),
+          ),
+        ),
       ),
       body: SafeArea(
         child: Padding(
@@ -170,15 +182,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Progress Indicator
-              LinearProgressIndicator(
-                value: 0.66,
-                backgroundColor: AppColors.backgroundSecondary,
-                valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
-                minHeight: 4,
-              ),
-              
-              const SizedBox(height: AppDimensions.paddingXL),
+              const SizedBox(height: AppDimensions.paddingL),
               
               Text(
                 'Verify Email',
@@ -199,38 +203,83 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
               
               const SizedBox(height: AppDimensions.paddingXXL),
               
-              // OTP Input
+              // OTP Input Fields - Circular Design
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: List.generate(6, (index) => _buildOTPField(index)),
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: List.generate(
+                  6,
+                  (index) => Container(
+                    width: 56,
+                    height: 56,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: _controllers[index].text.isNotEmpty
+                            ? AppColors.primary
+                            : AppColors.backgroundSecondary,
+                        width: 2,
+                      ),
+                    ),
+                    child: TextField(
+                      controller: _controllers[index],
+                      focusNode: _focusNodes[index],
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.number,
+                      maxLength: 1,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      decoration: const InputDecoration(
+                        counterText: '',
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.zero,
+                      ),
+                      onChanged: (value) {
+                        setState(() {}); // Rebuild to update border color
+                        if (value.isNotEmpty) {
+                          if (index < 5) {
+                            _focusNodes[index + 1].requestFocus();
+                          } else {
+                            _focusNodes[index].unfocus();
+                            _onCodeComplete();
+                          }
+                        } else if (value.isEmpty && index > 0) {
+                          _focusNodes[index - 1].requestFocus();
+                        }
+                      },
+                    ),
+                  ),
+                ),
               ),
               
               const SizedBox(height: AppDimensions.paddingL),
               
               // Resend Code
               Center(
-                child: TextButton(
-                  onPressed: () {
-                    // TODO: Resend code
-                  },
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.refresh,
-                        size: 16,
-                        color: AppColors.primary.withOpacity(0.7),
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.info_outline,
+                      size: 16,
+                      color: AppColors.primary,
+                    ),
+                    const SizedBox(width: 8),
+                    TextButton(
+                      onPressed: () {
+                        // TODO: Resend code
+                      },
+                      child: const Text(
                         'Resend Code',
                         style: TextStyle(
-                          color: AppColors.primary.withOpacity(0.7),
-                          fontWeight: FontWeight.w500,
+                          color: AppColors.primary,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
               
@@ -265,57 +314,6 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildOTPField(int index) {
-    return SizedBox(
-      width: 50,
-      child: TextField(
-        controller: _controllers[index],
-        focusNode: _focusNodes[index],
-        textAlign: TextAlign.center,
-        keyboardType: TextInputType.number,
-        maxLength: 1,
-        style: const TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-        ),
-        decoration: InputDecoration(
-          counterText: '',
-          filled: true,
-          fillColor: AppColors.backgroundSecondary,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(AppDimensions.radiusM),
-            borderSide: BorderSide.none,
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(AppDimensions.radiusM),
-            borderSide: BorderSide.none,
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(AppDimensions.radiusM),
-            borderSide: const BorderSide(
-              color: AppColors.primary,
-              width: 2,
-            ),
-          ),
-        ),
-        inputFormatters: [
-          FilteringTextInputFormatter.digitsOnly,
-        ],
-        onChanged: (value) {
-          if (value.isNotEmpty && index < 5) {
-            _focusNodes[index + 1].requestFocus();
-          } else if (value.isEmpty && index > 0) {
-            _focusNodes[index - 1].requestFocus();
-          }
-          
-          if (index == 5 && value.isNotEmpty) {
-            _onCodeComplete();
-          }
-        },
       ),
     );
   }

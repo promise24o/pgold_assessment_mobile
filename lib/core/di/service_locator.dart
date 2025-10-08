@@ -2,6 +2,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import '../network/dio_client.dart';
 import '../services/auth_service.dart';
+import '../services/rates_service.dart';
 
 final getIt = GetIt.instance;
 
@@ -26,5 +27,10 @@ Future<void> setupServiceLocator() async {
       getIt<DioClient>(),
       getIt<FlutterSecureStorage>(),
     ),
+  );
+
+  // Rates Service
+  getIt.registerLazySingleton<RatesService>(
+    () => RatesService(getIt<DioClient>()),
   );
 }

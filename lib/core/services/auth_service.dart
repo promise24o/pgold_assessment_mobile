@@ -41,6 +41,11 @@ class AuthService {
 
       final registerResponse = RegisterResponse.fromJson(response.data);
       
+      // Save token if provided (user is now authenticated)
+      if (registerResponse.token != null) {
+        await _secureStorage.write(key: 'auth_token', value: registerResponse.token!);
+      }
+      
       // Save user email for verification
       await _secureStorage.write(key: 'pending_email', value: registerResponse.user.email);
 

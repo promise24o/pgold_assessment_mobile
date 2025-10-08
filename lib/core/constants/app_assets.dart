@@ -12,6 +12,8 @@ class AppAssets {
   static const String referralBanner = '$_imagesPath/referral_banner.png';
   static const String payBillsBanner = '$_imagesPath/pay_bills_banner.png';
   static const String patterns = '$_imagesPath/patterns.png';
+  static const String verifyGif = '$_imagesPath/verify.gif';
+  static const String selfiePng = '$_imagesPath/selfie.png';
 
   // Icons
   static const String _iconsPath = 'assets/icons';

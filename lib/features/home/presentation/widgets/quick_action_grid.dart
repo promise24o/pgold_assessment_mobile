@@ -3,6 +3,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/constants/app_assets.dart';
+import '../../../../app/routes/app_routes.dart';
 
 /// Quick action grid with 8 action items
 class QuickActionGrid extends StatelessWidget {
@@ -29,7 +30,7 @@ class QuickActionGrid extends StatelessWidget {
           label: action.label,
           iconPath: action.iconPath,
           color: action.color,
-          onTap: action.onTap,
+          onTap: () => action.onTap(context),
         );
       },
     );
@@ -41,49 +42,53 @@ class QuickActionGrid extends StatelessWidget {
         label: AppStrings.crypto,
         iconPath: AppAssets.crypto,
         color: const Color(0xFF1A1A1A),
-        onTap: () {},
+        onTap: (context) {
+          Navigator.of(context).pushNamed(AppRoutes.rates);
+        },
       ),
       _QuickActionModel(
         label: AppStrings.giftcards,
         iconPath: AppAssets.giftcards,
         color: const Color(0xFF7C3AED),
-        onTap: () {},
+        onTap: (context) {
+          Navigator.of(context).pushNamed(AppRoutes.rates);
+        },
       ),
       _QuickActionModel(
         label: AppStrings.topUp,
         iconPath: AppAssets.topUp,
         color: const Color(0xFFFF6B00),
-        onTap: () {},
+        onTap: (context) {},
       ),
       _QuickActionModel(
         label: AppStrings.cableTV,
         iconPath: AppAssets.cableTV,
         color: const Color(0xFF0EA5E9),
-        onTap: () {},
+        onTap: (context) {},
       ),
       _QuickActionModel(
         label: AppStrings.electricity,
         iconPath: AppAssets.electricity,
         color: const Color(0xFFEC4899),
-        onTap: () {},
+        onTap: (context) {},
       ),
       _QuickActionModel(
         label: AppStrings.betting,
         iconPath: AppAssets.betting,
         color: const Color(0xFF8B5CF6),
-        onTap: () {},
+        onTap: (context) {},
       ),
       _QuickActionModel(
         label: AppStrings.flight,
         iconPath: AppAssets.flight,
         color: const Color(0xFF06B6D4),
-        onTap: () {},
+        onTap: (context) {},
       ),
       _QuickActionModel(
         label: AppStrings.userRank,
         iconPath: AppAssets.userRank,
         color: const Color(0xFFEF4444),
-        onTap: () {},
+        onTap: (context) {},
       ),
     ];
   }
@@ -160,7 +165,7 @@ class _QuickActionModel {
   final String label;
   final String iconPath;
   final Color color;
-  final VoidCallback onTap;
+  final void Function(BuildContext) onTap;
 
   _QuickActionModel({
     required this.label,

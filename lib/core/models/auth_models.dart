@@ -72,11 +72,13 @@ class RegisterResponse {
   final UserModel user;
   @JsonKey(name: 'verification_code')
   final String? verificationCode;
+  final String? token;
 
   RegisterResponse({
     required this.message,
     required this.user,
     this.verificationCode,
+    this.token,
   });
 
   factory RegisterResponse.fromJson(Map<String, dynamic> json) =>

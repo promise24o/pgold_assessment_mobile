@@ -10,6 +10,8 @@ import '../../features/auth/presentation/pages/email_address_screen.dart';
 import '../../features/auth/presentation/pages/verify_email_screen.dart';
 import '../../features/auth/presentation/pages/enable_face_id_screen.dart';
 import '../../features/auth/presentation/pages/enable_fingerprint_screen.dart';
+import '../../features/auth/presentation/pages/selfie_verification_screen.dart';
+import '../../features/rates/presentation/pages/rates_screen.dart';
 
 /// Route generator for navigation
 class RouteGenerator {
@@ -70,8 +72,14 @@ class RouteGenerator {
         final args = settings.arguments as Map<String, dynamic>?;
         return MaterialPageRoute(
           builder: (_) => VerifyEmailScreen(
-            email: args?['email'],
+            email: args?['email'] ?? '',
           ),
+          settings: settings,
+        );
+
+      case AppRoutes.selfieVerification:
+        return MaterialPageRoute(
+          builder: (_) => const SelfieVerificationScreen(),
           settings: settings,
         );
 
@@ -84,6 +92,12 @@ class RouteGenerator {
       case AppRoutes.enableFingerprint:
         return MaterialPageRoute(
           builder: (_) => const EnableFingerprintScreen(),
+          settings: settings,
+        );
+
+      case AppRoutes.rates:
+        return MaterialPageRoute(
+          builder: (_) => const RatesScreen(),
           settings: settings,
         );
 

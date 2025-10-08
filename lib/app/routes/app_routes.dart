@@ -13,11 +13,13 @@ class AppRoutes {
   static const String createAccount = '/create-account';
   static const String emailAddress = '/email-address';
   static const String verifyEmail = '/verify-email';
+  static const String selfieVerification = '/selfie-verification';
   static const String enableFaceId = '/enable-face-id';
   static const String enableFingerprint = '/enable-fingerprint';
   
   // Other routes
   static const String home = '/home';
   static const String profile = '/profile';
+  static const String rates = '/rates';
   static const String rateCalculator = '/rate-calculator';
 }
