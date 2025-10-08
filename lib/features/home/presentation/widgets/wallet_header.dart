@@ -161,7 +161,7 @@ class _WalletHeaderState extends State<WalletHeader> {
                                     color: AppColors.textWhite,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 32,
-                                    fontFamily: null, // Use system font for symbol
+                                    fontFamily: null,  
                                   ),
                                 ),
                                 TextSpan(
@@ -195,7 +195,7 @@ class _WalletHeaderState extends State<WalletHeader> {
                                 color: AppColors.textWhite,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 32,
-                                fontFamily: null, // Use system font for symbol
+                                fontFamily: null, 
                               ),
                             ),
                             const TextSpan(
@@ -214,14 +214,14 @@ class _WalletHeaderState extends State<WalletHeader> {
                 // Currency Selector with pgold icon
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: AppDimensions.paddingM,
+                    horizontal: AppDimensions.paddingS,
                     vertical: AppDimensions.paddingS,
                   ),
                   decoration: BoxDecoration(
                     color: AppColors.textWhite,
                     borderRadius: BorderRadius.circular(AppDimensions.radiusCircle),
                     border: Border.all(
-                      color: const Color(0xFF0052FF).withOpacity(0.33),
+                      color: const Color(0xFF0052FF).withValues(alpha: 0.33),
                       width: 1,
                     ),
                   ),
@@ -357,8 +357,8 @@ class _WalletHeaderState extends State<WalletHeader> {
         foregroundColor: AppColors.primary,
         elevation: 0,
         padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 14,
+          horizontal: 14,
+          vertical: 6,
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(100),
@@ -372,28 +372,23 @@ class _WalletHeaderState extends State<WalletHeader> {
         mainAxisSize: MainAxisSize.min,
         children: [
           // Circular blue background with icon
-          Container(
+          SizedBox(
             width: 40,
             height: 40,
-            decoration: const BoxDecoration(
-              color: AppColors.primary,
-              shape: BoxShape.circle,
-            ),
             child: Center(
               child: Image.asset(
                 iconPath,
-                width: 20,
-                height: 20,
-                color: AppColors.textWhite,
+                width: 40,
+                height: 40,
               ),
             ),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: 1),
           Text(
             label,
             style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
+              fontSize: 15,
+              fontWeight: FontWeight.normal,
               color: AppColors.primary,
               letterSpacing: 0,
             ),
