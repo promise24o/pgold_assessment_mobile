@@ -4,6 +4,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/constants/app_assets.dart';
+import '../../../../app/routes/app_routes.dart';
 import '../models/onboarding_page_model.dart';
 import '../widgets/onboarding_page_widget.dart';
 
@@ -69,9 +70,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void _navigateToLogin() {
-    // TODO: Navigate to login screen when auth is implemented
-    // For now, navigate to home
-    Navigator.of(context).pushReplacementNamed('/home');
+    Navigator.of(context).pushReplacementNamed(AppRoutes.signIn);
   }
 
   @override

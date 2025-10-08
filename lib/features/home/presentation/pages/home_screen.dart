@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/di/service_locator.dart';
+import '../../../../core/services/auth_service.dart';
+import '../../../../core/models/user_model.dart';
 import '../widgets/wallet_header.dart';
 import '../widgets/quick_action_grid.dart';
 import '../widgets/promotional_carousel.dart';
@@ -15,16 +18,49 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  UserModel? _user;
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserProfile();
+  }
+
+  Future<void> _loadUserProfile() async {
+    try {
+      final authService = getIt<AuthService>();
+      final user = await authService.getProfile();
+      setState(() {
+        _user = user;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+      // Handle error silently or show a message
+    }
+  }
   @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+      return const Scaffold(
+        backgroundColor: AppColors.backgroundSecondary,
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: AppColors.backgroundSecondary,
       body: SingleChildScrollView(
         child: Column(
           children: [
             // Wallet Header with blue background (fullscreen)
-            const WalletHeader(
-              userName: 'Bafreka',
+            WalletHeader(
+              userName: _user?.fullName ?? 'User',
               balance: 7012723.00,
               currency: 'NGP',
             ),
