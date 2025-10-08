@@ -15,10 +15,11 @@ class QuickActionGrid extends StatelessWidget {
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.zero,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 4,
         crossAxisSpacing: AppDimensions.paddingM,
-        mainAxisSpacing: AppDimensions.paddingL,
+        mainAxisSpacing: AppDimensions.paddingM,
         childAspectRatio: 0.85,
       ),
       itemCount: actions.length,

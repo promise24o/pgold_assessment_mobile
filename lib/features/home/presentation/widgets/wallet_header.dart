@@ -61,6 +61,9 @@ class _WalletHeaderState extends State<WalletHeader> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Add top spacing to push content down from status bar
+            const SizedBox(height: 40),
+            
             // Top Row: Profile, Greeting, Actions
             Row(
               children: [

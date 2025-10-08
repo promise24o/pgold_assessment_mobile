@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/constants/app_assets.dart';
 import 'home_screen.dart';
 
 /// Main navigation wrapper with bottom navigation bar
@@ -53,27 +54,27 @@ class _MainNavigationState extends State<MainNavigation> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _buildNavItem(
-                icon: Bootstrap.house_fill,
+                iconPath: AppAssets.home,
                 label: AppStrings.home,
                 index: 0,
               ),
               _buildNavItem(
-                icon: Bootstrap.clock_history,
+                iconPath: AppAssets.wallet,
                 label: AppStrings.history,
                 index: 1,
               ),
               _buildNavItem(
-                icon: Bootstrap.credit_card_2_front,
+                iconPath: AppAssets.transactions,
                 label: AppStrings.cards,
                 index: 2,
               ),
               _buildNavItem(
-                icon: Bootstrap.graph_up,
+                iconPath: AppAssets.transactions,
                 label: AppStrings.rates,
                 index: 3,
               ),
               _buildNavItem(
-                icon: Bootstrap.person_fill,
+                iconPath: AppAssets.profile,
                 label: AppStrings.profile,
                 index: 4,
               ),
@@ -85,7 +86,7 @@ class _MainNavigationState extends State<MainNavigation> {
   }
 
   Widget _buildNavItem({
-    required IconData icon,
+    required String iconPath,
     required String label,
     required int index,
   }) {
@@ -103,10 +104,14 @@ class _MainNavigationState extends State<MainNavigation> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              icon,
-              size: 24,
-              color: isSelected ? AppColors.primary : AppColors.textTertiary,
+            SvgPicture.asset(
+              iconPath,
+              width: 24,
+              height: 24,
+              colorFilter: ColorFilter.mode(
+                isSelected ? AppColors.primary : AppColors.textTertiary,
+                BlendMode.srcIn,
+              ),
             ),
             const SizedBox(height: 4),
             Text(
