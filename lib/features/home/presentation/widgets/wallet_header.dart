@@ -152,12 +152,28 @@ class _WalletHeaderState extends State<WalletHeader> {
                     ? Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            '₦$formattedBalance',
-                            style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                              color: AppColors.textWhite,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 32,
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: '₦',
+                                  style: TextStyle(
+                                    color: AppColors.textWhite,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 32,
+                                    fontFamily: null, // Use system font for symbol
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: formattedBalance,
+                                  style: const TextStyle(
+                                    color: AppColors.textWhite,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 32,
+                                    fontFamily: 'Sora',
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                           Text(
@@ -170,12 +186,28 @@ class _WalletHeaderState extends State<WalletHeader> {
                           ),
                         ],
                       )
-                    : Text(
-                        '₦******',
-                        style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                          color: AppColors.textWhite,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 32,
+                    : RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: '₦',
+                              style: TextStyle(
+                                color: AppColors.textWhite,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 32,
+                                fontFamily: null, // Use system font for symbol
+                              ),
+                            ),
+                            const TextSpan(
+                              text: '******',
+                              style: TextStyle(
+                                color: AppColors.textWhite,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 32,
+                                fontFamily: 'Sora',
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                 
@@ -188,6 +220,10 @@ class _WalletHeaderState extends State<WalletHeader> {
                   decoration: BoxDecoration(
                     color: AppColors.textWhite,
                     borderRadius: BorderRadius.circular(AppDimensions.radiusCircle),
+                    border: Border.all(
+                      color: const Color(0xFF0052FF).withOpacity(0.33),
+                      width: 1,
+                    ),
                   ),
                   child: Row(
                     children: [
@@ -221,27 +257,24 @@ class _WalletHeaderState extends State<WalletHeader> {
             
             // Action Buttons
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
-                  child: _buildActionButton(
-                    context,
-                    label: AppStrings.withdraw,
-                    iconPath: AppAssets.withdrawal,
-                    onTap: () {
-                      // TODO: Navigate to withdraw
-                    },
-                  ),
+                _buildActionButton(
+                  context,
+                  label: AppStrings.withdraw,
+                  iconPath: AppAssets.withdrawal,
+                  onTap: () {
+                    // TODO: Navigate to withdraw
+                  },
                 ),
                 const SizedBox(width: AppDimensions.paddingM),
-                Expanded(
-                  child: _buildActionButton(
-                    context,
-                    label: AppStrings.deposit,
-                    iconPath: AppAssets.deposit,
-                    onTap: () {
-                      // TODO: Navigate to deposit
-                    },
-                  ),
+                _buildActionButton(
+                  context,
+                  label: AppStrings.deposit,
+                  iconPath: AppAssets.deposit,
+                  onTap: () {
+                    // TODO: Navigate to deposit
+                  },
                 ),
               ],
             ),
@@ -324,27 +357,45 @@ class _WalletHeaderState extends State<WalletHeader> {
         foregroundColor: AppColors.primary,
         elevation: 0,
         padding: const EdgeInsets.symmetric(
-          vertical: AppDimensions.paddingM,
+          horizontal: 20,
+          vertical: 14,
         ),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppDimensions.radiusM),
+          borderRadius: BorderRadius.circular(100),
+          side: BorderSide(
+            color: const Color(0xFF0052FF).withOpacity(0.33),
+            width: 1,
+          ),
         ),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Image.asset(
-            iconPath,
-            width: 20,
-            height: 20,
-            color: AppColors.primary,
+          // Circular blue background with icon
+          Container(
+            width: 40,
+            height: 40,
+            decoration: const BoxDecoration(
+              color: AppColors.primary,
+              shape: BoxShape.circle,
+            ),
+            child: Center(
+              child: Image.asset(
+                iconPath,
+                width: 20,
+                height: 20,
+                color: AppColors.textWhite,
+              ),
+            ),
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 12),
           Text(
             label,
             style: const TextStyle(
-              fontSize: 14,
+              fontSize: 16,
               fontWeight: FontWeight.w600,
+              color: AppColors.primary,
+              letterSpacing: 0,
             ),
           ),
         ],

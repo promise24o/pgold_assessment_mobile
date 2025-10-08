@@ -59,17 +59,17 @@ class _MainNavigationState extends State<MainNavigation> {
                 index: 0,
               ),
               _buildNavItem(
-                iconPath: AppAssets.wallet,
+                iconPath: AppAssets.history,
                 label: AppStrings.history,
                 index: 1,
               ),
               _buildNavItem(
-                iconPath: AppAssets.transactions,
+                iconPath: AppAssets.cards,
                 label: AppStrings.cards,
                 index: 2,
               ),
               _buildNavItem(
-                iconPath: AppAssets.transactions,
+                iconPath: AppAssets.rates,
                 label: AppStrings.rates,
                 index: 3,
               ),

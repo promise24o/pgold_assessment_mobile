@@ -19,7 +19,9 @@ class AppAssets {
   // Bottom Navigation Icons
   static const String home = '$_iconsPath/home.svg';
   static const String wallet = '$_iconsPath/wallet.svg';
-  static const String transactions = '$_iconsPath/transactions.svg';
+  static const String cards = '$_iconsPath/cards.svg';
+  static const String rates = '$_iconsPath/rates.svg';
+  static const String history = '$_iconsPath/history.svg';
   static const String profile = '$_iconsPath/profile.svg';
   
   // Quick Action Icons
